@@ -11,7 +11,7 @@ io.streams.wordcount.WordCount#main
 ### Run the producer in a separate console
 ./run/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streams-plaintext-input  
 
-### Run the producer in a separate console
+### Run the consumer in a separate console
 kafka-console-consumer.bat --bootstrap-server localhost:9092   
                            --topic streams-wordcount-output   
 						   --from-beginning 
