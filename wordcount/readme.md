@@ -1,5 +1,5 @@
 ### Run zookepper:
-< ./run/bin/zookeeper-server-start.sh ./run/config/zookeeper.properties
+./run/bin/zookeeper-server-start.sh ./run/config/zookeeper.properties
 
 ### Run kafka broker:
 ./run/bin/kafka-server-start.sh ./run/config/server.properties
