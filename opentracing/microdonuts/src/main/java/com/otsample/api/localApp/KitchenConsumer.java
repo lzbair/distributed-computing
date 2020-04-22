@@ -1,4 +1,4 @@
-package com.otsample.api;
+package com.otsample.api.localApp;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.otsample.api.Utils;
+import io.opentracing.contrib.okhttp3.SpanDecorator;
+import io.opentracing.contrib.okhttp3.TracingInterceptor;
+import io.opentracing.util.GlobalTracer;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,7 +27,16 @@ public class KitchenConsumer
 
     public KitchenConsumer()
     {
-        client = new OkHttpClient.Builder().build();
+
+        //Tracing : Instrument outgoing calls from localApp to remoteApp
+        TracingInterceptor tracingInterceptor = new TracingInterceptor(
+                GlobalTracer.get(),
+                Arrays.asList(SpanDecorator.STANDARD_TAGS));
+
+        client = new OkHttpClient.Builder()
+                .addInterceptor(tracingInterceptor)
+                .addNetworkInterceptor(tracingInterceptor)
+                .build();
         jsonType = MediaType.parse("application/json");
     }
 

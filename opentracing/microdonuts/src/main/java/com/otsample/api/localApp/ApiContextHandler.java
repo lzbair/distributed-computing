@@ -1,10 +1,9 @@
-package com.otsample.api;
+package com.otsample.api.localApp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-import javax.servlet.Filter;
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.otsample.api.Utils;
+import io.opentracing.contrib.web.servlet.filter.TracingFilter;
+import io.opentracing.util.GlobalTracer;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 

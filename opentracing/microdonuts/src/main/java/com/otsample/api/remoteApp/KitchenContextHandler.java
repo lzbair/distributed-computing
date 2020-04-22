@@ -1,4 +1,4 @@
-package com.otsample.api;
+package com.otsample.api.remoteApp;
 
 import java.io.IOException;
 import java.util.*;
@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.otsample.api.Utils;
+import io.opentracing.contrib.web.servlet.filter.TracingFilter;
+import io.opentracing.util.GlobalTracer;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-
-import io.opentracing.contrib.web.servlet.filter.TracingFilter;
 
 import com.otsample.api.resources.*;
 
@@ -23,6 +24,11 @@ public class KitchenContextHandler extends ServletContextHandler
 
     public KitchenContextHandler(Properties config)
     {
+        //Tracing : Instrument incoming calls to  remoteApp
+        TracingFilter tracingFilter = new TracingFilter(GlobalTracer.get());
+        addFilter(new FilterHolder(tracingFilter), "/*", EnumSet.allOf(DispatcherType.class));
+
+
         setContextPath("/kitchen");
         registerServlets();
     }

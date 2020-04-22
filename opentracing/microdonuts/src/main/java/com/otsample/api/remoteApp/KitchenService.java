@@ -1,4 +1,4 @@
-package com.otsample.api;
+package com.otsample.api.remoteApp;
 
 import java.util.ArrayList;
 import java.util.Collection;
