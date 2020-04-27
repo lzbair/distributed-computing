@@ -20,7 +20,7 @@ installed):
 ```
 git clone git@github.com:opentracing-contrib/java-opentracing-walkthrough.git
 cd java-opentracing-walkthrough/microdonuts
-mvn package
+mvn clean package
 ```
 
 ### Running
@@ -31,7 +31,7 @@ the same process:
 
 ```
 cd java-opentracing-walkthrough/microdonuts
-mvn package exec:exec
+java -cp target\api-1.0-SNAPSHOT.jar com.otsample.api.localApp.App
 ```
 
 In your web broswer, navigate to http://127.0.0.1:10001 and order yourself some
